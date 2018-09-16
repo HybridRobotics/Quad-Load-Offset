@@ -5,7 +5,7 @@ errorbar(freq,old,oldUncertainty,'-s','MarkerSize',10,...
 errorbar(freq,new,newUncertainty,'-o','MarkerSize',10,...
     'MarkerEdgeColor','blue','MarkerFaceColor','blue')
 set(gca,'YScale','log')
-xlabel('f (hz)')
-ylabel('e_{x_L} (m)')
+xlabel({'f (Hz)'},'Interpreter','latex')
+ylabel({'$e_{x_L}$ (m)'},'Interpreter','latex')
 grid on
-legend('Traditional geometric control design','Improved geometric control design')
+legend({'Geometric control design $\mathcal{M}_Z$','Geometric control design $\mathcal{M}_O$'},'Interpreter','latex')

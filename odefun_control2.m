@@ -1,7 +1,8 @@
 %% Offset Model: slow model control
 function[dx, xLd, Rd, qd, f, M] = odefun_control(t,x,data)
 
-global d2R_;
+global R_;
+global Omega_;
 %% Constants
 mL = data.params.mL;
 g = data.params.g;
@@ -15,7 +16,7 @@ r = data.params.r;
 
 %% Get Desired States
 [xLd,vLd,aLd,~,dqd,d2qd,Rd,omegad,domegad,Omegad,dOmegad] = ...
-get_nom_traj(data.params, get_load_traj3(t));
+get_nom_traj2(data.params, get_load_traj3(t));
 
 %% Extracting States
 xL = x(1:3);
@@ -113,7 +114,8 @@ Omega_dot = temp(4:6);
 omega_dot = -hat(q)*u_perp+vec_cross(q,(1/l)*...
     (vL_dot+g*e3+R*(hat(Omega)*hat(Omega)+hat(Omega_dot))*r));
 
-d2R_ = Rd*hat(Omegad)^2 + Rd*dOmegad;
+R_ = R;
+Omega_ = Omega;
 %% Output
 dx = [xL_dot; vL_dot; q_dot; omega_dot; reshape(R_dot, 9,1); Omega_dot];
 

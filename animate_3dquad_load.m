@@ -3,9 +3,9 @@ RATE = 25 * 1;
 %==========================================
 % initialize the animation figure and axes
 %==========================================
-figure_x_limits = [-4 8];
-figure_y_limits = [-9 5];
-figure_z_limits = [-2 3] ;
+figure_x_limits = [-1 7];
+figure_y_limits = [-4 4];
+figure_z_limits = [-1 1] ;
 fig1 = figure;
 
 set(0,'Units','pixels')
@@ -48,54 +48,51 @@ t = t+torig(1) ;
 [~, xLd] = even_sample(t_pd, xLd, RATE) ;
 L = 1 ; % Cable length
 %% Define plotting length
-hist = 2500;
+hist = 100;
 MAKE_MOVIE = 1;
 if(MAKE_MOVIE)
     M = moviein(length(t)) ;
 end
-% shading color settings
-colorBlue1 = [127/255 233/255 1];
-colorBlue2 = [0 0 1];
-colorRed1 = [1 154/255 154/255];
-colorRed2 = [1 0 0];
 
 % aviobj = avifile('sample2.avi','compression','None');
 for i=1:length(t)
     %set(axes1,'XLim',figure_x_limits+pH(i,1)) ;
     drawone(axes1, x(i,:)');
-    %% No shading plotting
-%     plot3(x(max(1,i-hist):i, 1), x(max(1,i-hist):i, 2), x(max(1,i-hist):i, 3), 'b');
-%     plot3(xLd(max(1,i-hist):i, 1), xLd(max(1,i-hist):i, 2), xLd(max(1,i-hist):i, 3), 'r');
-
-    %% Shading plotting
-    plot3_surf(x(max(1,i-hist):i, 1), x(max(1,i-hist):i, 2), x(max(1,i-hist):i, 3), colorBlue1, colorBlue2, 2, '-');
-    plot3_surf(xLd(max(1,i-hist):i, 1), xLd(max(1,i-hist):i, 2), xLd(max(1,i-hist):i, 3), colorRed1, colorRed2, 2, '-');
+    % No shading plotting
+    plot3(x(max(1,i-hist):i, 1), x(max(1,i-hist):i, 2), x(max(1,i-hist):i, 3), 'b');
+    plot3(xLd(max(1,i-hist):i, 1), xLd(max(1,i-hist):i, 2), xLd(max(1,i-hist):i, 3), 'r');
+    view(0,90);
     %         plot3(xorig(:, 1), xorig(:, 2), xorig(:, 3), 'b') ;
     %         plot3(xLdorig(:, 1), xLdorig(:, 2), xLdorig(:, 3), 'r') ;
     %         s = sprintf('Running\n t = %1.2fs \n 1/%d realtime speed',t(i), RATE/25);
     %         text(-1.3,2.4,s,'FontAngle','italic','FontWeight','bold');
     drawnow;
     set(axes1,'XLim',figure_x_limits,'YLim',figure_y_limits,'ZLim',figure_z_limits);
-    if MAKE_MOVIE, M(:,i) = getframe; end
+    % if MAKE_MOVIE, M(:,i) = getframe; end
     %         aviobj = addframe(aviobj, fig1);
-    
-    %% Motion SnapShot
-    if i ==length(t)
-        drawtwo(axes1, x(1,:)');
-        drawtwo(axes1, x(floor(length(t)/32),:)');
-        drawtwo(axes1, x(floor(length(t)/32*2),:)');
-        drawtwo(axes1, x(floor(length(t)/32*3),:)');
-        drawtwo(axes1, x(floor(length(t)/32*4),:)');
-        drawtwo(axes1, x(floor(length(t)/32*5),:)');
-        opts.print.index = 4;
-        % opts.print_pos_sz =[0.25 2.5 10 8.5];
-        
-        opts.print.filename = 'Snapshot';
-        opts.print.ext = '-depsc';
-        print_fig(opts,fig1);
-        % saveas(fig1,'SnapShot_Motion.png')
-    else
+    if i == length(t)
+    opts.print.filename = 'OffsetController';
+    opts.print.ext = '-depsc';
+    print_fig(opts,fig1);
+    saveas(fig1,'OffsetController.png')
     end
+    %% Motion SnapShot
+%     if i ==length(t)
+%         drawtwo(axes1, x(1,:)');
+%         drawtwo(axes1, x(floor(length(t)/32),:)');
+%         drawtwo(axes1, x(floor(length(t)/32*2),:)');
+%         drawtwo(axes1, x(floor(length(t)/32*3),:)');
+%         drawtwo(axes1, x(floor(length(t)/32*4),:)');
+%         drawtwo(axes1, x(floor(length(t)/32*5),:)');
+%         opts.print.index = 4;
+%         % opts.print_pos_sz =[0.25 2.5 10 8.5];
+%         
+%         opts.print.filename = 'Snapshot';
+%         opts.print.ext = '-depsc';
+%         print_fig(opts,fig1);
+%         % saveas(fig1,'SnapShot_Motion.png')
+%     else
+%     end
     
 end
 %     aviobj = close(aviobj);

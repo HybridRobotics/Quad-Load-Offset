@@ -5,3 +5,7 @@
 *.mat
 *.png
 *.eps
+
+# Folders
+Figures/
+Data/

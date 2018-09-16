@@ -3,7 +3,8 @@
 % load trajectory and higher order time deriviatives.
 function [xLd,vLd,aLd,p,dp,d2p,...
     R,omega,domega,Omega,dOmega,daLd,d2aLd,d3p,dR,d2R,f,M] = get_nom_traj2(params, load_traj)
-global d2R_;
+global R_;
+global Omega_;
 %% Constants
 mQ = params.mQ ;
 mL = params.mL ;
@@ -28,7 +29,7 @@ d4aLd = load_traj.d6xL;
 Tp = -mL*(aLd + g*e3) ;
 norm_Tp = norm(Tp);
 p = Tp / norm_Tp;
-xQ = xLd - l*p;
+xQ = xLd - l*p - R_*r;
 
 dTp = -mL*daLd ;
 dnorm_Tp = 1/norm_Tp * vec_dot(Tp, dTp) ;
@@ -54,10 +55,10 @@ omega = vec_cross(p,dp);
 domega = vec_cross(dp,dp)+vec_cross(p,d2p);
 
 %% Derivatives of Quadrotor's Position
-vxQ = vLd - l*dp;
-axQ = aLd - l*d2p - d2R_*r;
-daxQ = daLd - l*d3p;
-d2axQ = d2aLd - l*d4p;
+vxQ = vLd - l*dp - R_*hat(Omega_)*r;
+axQ = aLd - l*d2p - (R_*hat(Omega_)^2)*r;
+daxQ = daLd - l*d3p - (R_*hat(Omega_)^3)*r;
+d2axQ = d2aLd - l*d4p - (R_*hat(Omega_)^4)*r;
 
 b1d = e1;
 db1d = zeros(3,1);

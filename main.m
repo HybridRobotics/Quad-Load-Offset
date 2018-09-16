@@ -1,11 +1,12 @@
 %% Quadrotor Attitude Pendulum SO(3)x S(2)x R - Dynamics Simulation and Geometry Control
 close all;
-global d2R_;
+global R_;
+global Omega_;
 
-d2R_ = 0;
+R_ = eye(3);
+Omega_ = [0;0;0];
 %% Parameters
 data.params.mQ = 0.5;
-% data.params.mL = 0.087;
 data.params.mL = 0.5;
 data.params.J = [2.32e-3,0,0;0,2.32e-3,0;0,0,4e-3];
 data.params.g = 9.81;
@@ -14,12 +15,12 @@ data.params.e2 = [0;1;0];
 data.params.e3 = [0;0;1];
 data.params.l = 1;
 data.params.r = [0.05;0.05;-0.05];
-data.params.r = [0;0;-0.05];
+% data.params.r = [0;0;-0.05];
 
 %% Get initial condition from the nominal trajectory
-xL = [-3;-3;2];
+xL = [0;0;0];
 vL = zeros(3,1);
-th = 90*pi/180;
+th = 180*pi/180;
 q = [-sin(th);0;cos(th)];
 omega = [0;0;0];
 R = eye(3,3);
@@ -33,7 +34,7 @@ end
 x_0 = [xL; vL; q; omega; reshape(R, 9,1); Omega];
 
 %% Solving Dynamical Equations
-odeopts = odeset('RelTol',1e-6,'AbsTol',1e-6);
+odeopts = odeset('RelTol',1e-2,'AbsTol',1e-2);
 % Don't forget to change the model of control for the part of "Compute
 % various quantities" 
 [t, x] = ode45(@odefun_control2, [0 30], x_0, odeopts, data);
