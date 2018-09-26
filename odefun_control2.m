@@ -58,11 +58,10 @@ d = [d1;d2];
 err_R = 1/2 * vee_map(Rd'*R - R'*Rd);
 err_Om = Omega - R'*Rd*Omegad;
 kR = 4; kOm = 4;
-epsilon = 0.1 ; %.5 ; %0.01 ;
+epsilon = 0.5 ; %.5 ; %0.01 ;
 kR = 4/epsilon^2; kOm = 4/epsilon;
 
 Wd1 = aLd+g*e3-kx*err_x-kv*err_v;
-Wd2 = 0; %don't concern about the angular acceleration of quadrotor
 Wd2 = -hat_map(Omega)*R'*Rd*Omegad+R'*Rd*dOmegad-kR*err_R-kOm*err_Om;
 
 %% PD force to track trajectory for Load with Feedforward
