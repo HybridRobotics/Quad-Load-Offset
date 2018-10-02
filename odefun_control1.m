@@ -1,5 +1,6 @@
-%% Robust Analysis with old geometric control design applied to the offset model  
+%% Zero offset geometric controller applied to the offset model  
 function[dx, xLd, Rd, qd, f, M] = odefun_control2(t,x,data)
+
 %% Constants
 mL = data.params.mL;
 g = data.params.g;
@@ -88,9 +89,7 @@ M = -kR/epsilon^2*err_R - kOm/epsilon*err_Om + vec_cross(Omega, J*Omega)...
 % Quadrotor Attitude
 R_dot = R*hat_map(Omega);
 
-%% Robust Analysis for offset model using old control design
-% Please comment this part before launching simulations if there is no offset from the CM of quadrotor
-% to the attachment point of cable
+%% Apply zero offset geometric controller to the offset dynamical model
 u = vec_dot(f, R(:,3))/(mQ*l);
 u_para = q*(q'*u);
 u_perp = -hat(q)*(hat(q)*u);

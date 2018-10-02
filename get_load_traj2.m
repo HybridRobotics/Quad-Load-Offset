@@ -1,5 +1,6 @@
 function load_traj = get_load_traj2(t)
-%% Return to the origin
+
+%% Hovering
 load_traj.xL = [0;0;0];
 load_traj.dxL = [0;0;0];
 load_traj.d2xL = [0;0;0];

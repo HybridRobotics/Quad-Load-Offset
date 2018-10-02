@@ -1,3 +1,4 @@
+%% Plotting final error in function of orbit frequency
 figure;
 hold on
 errorbar(freq,old,oldUncertainty,'-s','MarkerSize',10,...

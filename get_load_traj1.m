@@ -1,4 +1,5 @@
-function load_traj = get_load_traj(t)
+function load_traj = get_load_traj1(t)
+
 %% Global Test
 f1 = 1/4;
 f2 = 1/5;

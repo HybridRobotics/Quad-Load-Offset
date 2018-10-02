@@ -3,8 +3,11 @@
 % load trajectory and higher order time deriviatives.
 function [xLd,vLd,aLd,p,dp,d2p,...
     R,omega,domega,Omega,dOmega,daLd,d2aLd,d3p,dR,d2R,f,M] = get_nom_traj2(params, load_traj)
+
+%% Global variable for approximate differential flatness
 global R_;
 global Omega_;
+
 %% Constants
 mQ = params.mQ ;
 mL = params.mL ;

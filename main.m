@@ -1,10 +1,12 @@
 %% Quadrotor Attitude Pendulum SO(3)x S(2)x R - Dynamics Simulation and Geometry Control
 close all;
+
+%% Global variable for approximate differential flatness
 global R_;
 global Omega_;
-
 R_ = eye(3);
 Omega_ = [0;0;0];
+
 %% Parameters
 data.params.mQ = 0.5;
 data.params.mL = 0.087;

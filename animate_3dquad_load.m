@@ -62,13 +62,13 @@ colorRed2 = [1 0 0];
 for i=1:length(t)
     %set(axes1,'XLim',figure_x_limits+pH(i,1)) ;
     drawone(axes1, x(i,:)');
-    % No shading plotting
+%     %% No shading plotting
 %     plot3(x(max(1,i-hist):i, 1), x(max(1,i-hist):i, 2), x(max(1,i-hist):i, 3), 'b');
 %     plot3(xLd(max(1,i-hist):i, 1), xLd(max(1,i-hist):i, 2), xLd(max(1,i-hist):i, 3), 'r');
 %     
 %     plot3(xorig(:, 1), xorig(:, 2), xorig(:, 3), 'b') ;
 %     plot3(xLdorig(:, 1), xLdorig(:, 2), xLdorig(:, 3), 'r') ;
-%% Shading plotting
+    %% Shading plotting
     plot3_surf(x(max(1,i-hist):i, 1), x(max(1,i-hist):i, 2), x(max(1,i-hist):i, 3), colorBlue1, colorBlue2, 2, '-');
     plot3_surf(xLd(max(1,i-hist):i, 1), xLd(max(1,i-hist):i, 2), xLd(max(1,i-hist):i, 3), colorRed1, colorRed2, 2, '-');
     drawnow;
@@ -79,12 +79,12 @@ for i=1:length(t)
     % if MAKE_MOVIE, M(:,i) = getframe; end
     %         aviobj = addframe(aviobj, fig1);
     if i == length(t)
-    opts.print.filename = 'OffsetController';
-    opts.print.ext = '-depsc';
-    print_fig(opts,fig1);
-    saveas(fig1,'OffsetController.png')
+        opts.print.filename = 'OffsetController';
+        opts.print.ext = '-depsc';
+        print_fig(opts,fig1);
+        saveas(fig1,'OffsetController.png')
     end
-    % Motion SnapShot
+    %% Motion SnapShot
     if i ==length(t)
         drawtwo(axes1, x(1,:)');
         drawtwo(axes1, x(floor(length(t)/32),:)');

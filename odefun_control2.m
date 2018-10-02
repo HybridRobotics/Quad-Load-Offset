@@ -1,8 +1,10 @@
 %% Offset Model: slow model control
 function[dx, xLd, Rd, qd, f, M] = odefun_control(t,x,data)
 
+%% Global variable for approximate differential flatness
 global R_;
 global Omega_;
+
 %% Constants
 mL = data.params.mL;
 g = data.params.g;
@@ -95,7 +97,6 @@ kR = 4; kOm = 4;
 epsilon = 0.1 ; %.5 ; %0.01 ;
 kR = 4/epsilon^2; kOm = 4/epsilon;
 
-
 %% Update Dynamics
 Wd1 = aLd+g*e3-kx*err_x-kv*err_v;
 Wd2 = -hat_map(Omega)*R'*Rd*Omegad+R'*Rd*dOmegad-kR*err_R-kOm*err_Om;
@@ -113,8 +114,10 @@ Omega_dot = temp(4:6);
 omega_dot = -hat(q)*u_perp+vec_cross(q,(1/l)*...
     (vL_dot+g*e3+R*(hat(Omega)*hat(Omega)+hat(Omega_dot))*r));
 
+%% Update the global variable for approximate differential flatness
 R_ = R;
 Omega_ = Omega;
+
 %% Output
 dx = [xL_dot; vL_dot; q_dot; omega_dot; reshape(R_dot, 9,1); Omega_dot];
 
