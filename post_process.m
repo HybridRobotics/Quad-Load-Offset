@@ -9,4 +9,4 @@ set(gca,'YScale','log')
 xlabel({'f (Hz)'},'Interpreter','latex')
 ylabel({'$e_{x_L}$ (m)'},'Interpreter','latex')
 grid on
-legend({'Geometric controller $\mathcal{C}_Z$','Geometric controller $\mathcal{C}_O$'},'Interpreter','latex')
+legend('Geometric controller $\mathcal{C}_Z$','Geometric controller $\mathcal{C}_O$','Interpreter','latex')

@@ -2,10 +2,7 @@
 
 # Matlab files
 *.fig
-*.mat
 *.png
 *.eps
 
 # Folders
-Figures/
-Data/
